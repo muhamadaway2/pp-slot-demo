@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pragmatic Play Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <style>
+        #selectGame {
+            width: 480px;
+        }
+
+        .select-wrapper {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .img-detail {
+            width: 100px;
+        }
+
+        #gameFrame {
+            min-width: 600px;
+            min-height: 400px;
+            margin: 0px auto;
+        }
+
+        .frame-wrapper:fullscreen {
+            background-color: red;
+        }
+        .frame-wrapper:fullscreen #gameFrame {
+            width: 100%;
+            height: 100%;
+        }
+        .frame-wrapper:fullscreen .fullScreenBtn {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <div class="select-wrapper">
+            <h4>Pragmatic Play Demo</h4>
+            <select id="selectGame" name="state"></select>
+        </div>
+        <div class="frame-wrapper">
+            <iframe id="gameFrame" frameBorder="0" allowfullscreen></iframe>
+            <div class="row"></div>
+            <button class="btn btn-primary btn-xs fullScreenBtn">Fullscreen</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+    <script>
+        var data = [
+    {},
+    {
+        "title": "Yum Yum Powerways&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/08/339x180_Yum-Yum-Powerways_Thumbnails-1.png"
+    },
+    {
+        "title": "Chilli Heat Megaways&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/08/Chilli_Heat_Megaways_339x180.png"
+    },
+    {
+        "title": "Rise of Giza PowerNudge&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/07/Rise_of_Giza_PN_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/rise-of-giza-powernudge/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10nudgeit&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.49%"
+    },
+    {
+        "title": "Fruit Party 2&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/07/Fruit_Party_2_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/fruit-party-2/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20fparty2&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.53%"
+    },
+    {
+        "title": "Chicken Drop&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/07/Chicken_Drop_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/chicken-drop/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20chickdrop&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Book of Vikings&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/06/BOV__EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/book-of-vikings/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10bookviking&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Lucky Grace And Charm",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/06/Lucky_Grace__Charm_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/lucky-grace-and-charm/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10luckcharm&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.71%"
+    },
+    {
+        "title": "Empty the Bank&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/06/Empty_The_Bank_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/empty-the-bank/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20emptybank&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.48%"
+    },
+    {
+        "title": "5 Lions Megaways&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/06/5_Lions_Megaways_EN_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/5-lions-megaways/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vswayslions&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Lucky Lightning&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/06/Lucky_Lightning_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/lucky-lightning/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vswayslight&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.45%"
+    },
+    {
+        "title": "Dragon Hot Hold and Spin&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/06/DHHS_EN_339x180_04.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/dragon-hot-hold-and-spin/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs5drhs&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.70%"
+    },
+    {
+        "title": "Heart of Rio",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/05/Heart_of_-Rio_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/heart-of-rio/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25rio&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Panda&#8217;s Fortune 2",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/05/Pandas_Fortune_2_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/panda-fortune-2/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25pandatemple&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "95.50%"
+    },
+    {
+        "title": "The Magic Cauldron &#8211; Enchanted Brew&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/05/The_Magic_Cauldron_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/the-magic-cauldron-enchanted-brew/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20magicpot&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.44%"
+    },
+    {
+        "title": "Cash Elevator&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/05/CashElevator_EN_339x180_04-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/cash-elevator/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20terrorv&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.64%"
+    },
+    {
+        "title": "Phoenix Forge&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/04/Phoenix_Forge_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/phoenix-forge/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20phoenixf&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.51%"
+    },
+    {
+        "title": "The Amazing Money Machine&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/04/Amazing_Money_Machine_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/the-amazing-money-machine/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10amm&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.42%"
+    },
+    {
+        "title": "Buffalo King Megaways&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/04/Buffalo_King_Megaways_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/buffalo-king-megaways/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vswaysbufking&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Hot Fiesta&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/04/Hot_Fiesta_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/hot-fiesta/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25hotfiesta&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.56%"
+    },
+    {
+        "title": "Floating Dragon Hold and Spin&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/03/Floating_Dragon_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/floating-dragon-hold-and-spin/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10floatdrg&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.71%"
+    },
+    {
+        "title": "Wild Booster&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/03/Wild_Booster_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/wild-booster/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20wildboost&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.47%"
+    },
+    {
+        "title": "Power of Thor Megaways&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/03/Power_of_Thor_Megaways_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/power-of-thor-megaways/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vswayshammthor&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.55%"
+    },
+    {
+        "title": "Juicy Fruits&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/03/Juicy_Fruits_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/juicy-fruits/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs50juicyfr&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Temujin Treasures&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/03/Tamujin_Treasures_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/temujin-treasures/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs1024temuj&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.55%"
+    },
+    {
+        "title": "Fishin&#8217; Reels&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/Fishin_Reels_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/fishin-reels/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10goldfish&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Hot to Burn Hold and Spin&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/HTBHAS_EN_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/hot-to-burn-hold-and-spin/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20hburnhs&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.70%"
+    },
+    {
+        "title": "Gates of Olympus&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/GOOL_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/gates-of-olympus/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20olympgate&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Joker King&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/Joker_King_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/joker-king/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25jokerking&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "The Hand of Midas&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/THOM_EN_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/the-hand-of-midas/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20midas&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.54%"
+    },
+    {
+        "title": "Eye of the Storm&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/01/EOTS_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/eye-of-the-storm/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10eyestorm&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.71%"
+    },
+    {
+        "title": "Dragon Kingdom &#8211; Eyes of Fire&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/01/DKEOF_EN_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/dragon-kingdom-eyes-of-fire/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs5drmystery&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Madame Destiny Megaways&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/01/MDM_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/madame-destiny-megaways/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vswaysmadame&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.56%"
+    },
+    {
+        "title": "Congo Cash&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/01/Congo-Cash™_EN_339x180_01.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/congo-cash/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs432congocash&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.51%"
+    },
+    {
+        "title": "Emerald King Rainbow Road&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2021/01/EKRR_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/emerald-king-rainbow-road/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20ekingrr&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.71%"
+    },
+    {
+        "title": "Mysterious Egypt&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/12/Mysterious_Egypt_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/mysterious-egypt/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10wildtut&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Voodoo Magic&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/12/Voodoo_Magic_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/voodoo-magic/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs40voodoo&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Big Bass Bonanza&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/11/Big-Bass-Bonanza™_EN_339x180_04.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/big-bass-bonanza/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10bbbonanza&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.71%"
+    },
+    {
+        "title": "John Hunter and the Mayan Gods&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/11/John-Hunter-and-the-Mayan-Gods™_EN_339x180_01.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/john-hunter-and-the-mayan-gods/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10mayangods&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.46%"
+    },
+    {
+        "title": "Spartan King&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/11/Spartan-King™_EN_339x180_01.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/spartan-king/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs40spartaking&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.60%"
+    },
+    {
+        "title": "Christmas Carol Megaways&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/11/Christmas-Carol-Megaways__EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/christmas-carol-megaways/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20xmascarol&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Cowboys Gold&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/10/Cow-Boys-GoldOao_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/cowboys-gold/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10cowgold&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Book of Kingdoms&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/10/Book_of_KingdomsOao_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/book-of-kingdoms/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25bkofkngdm&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.69%"
+    },
+    {
+        "title": "Pirate Gold Deluxe&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/10/Pirate_Gold_Deluxe™_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/pirate-gold-deluxe/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs40pirgold&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.48%"
+    },
+    {
+        "title": "Dragon Tiger&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/10/Dragon-Tiger™_EN_339x180_01.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/dragon-tiger/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs1024dtiger&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Gems Bonanza&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/09/Gems-Bonanza™_339x180_01-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/gems-bonanza/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20goldfever&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.51%"
+    },
+    {
+        "title": "Return of the Dead&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/10/Return-of-Ra™_EN_339x180_04.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/return-of-the-dead/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10returndead&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.71%"
+    },
+    {
+        "title": "5 Lions Dance&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/09/5-Lion-Dance™_EN_339x180_01_c-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/5-lions-dance/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs1024lionsd&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Emerald King&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/09/Emerald_King_Thumbnail.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/emerald-king-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20eking&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.51%"
+    },
+    {
+        "title": "Wild Walker&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/09/Wild-Walker™_EN_339x180_02.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/wild-walker-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25walker&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.55%"
+    },
+    {
+        "title": "Wild Wild Riches&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/09/Wild_Wild_Riches™_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/wild-wild-riches-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs576treasures&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.77%"
+    },
+    {
+        "title": "Star Bounty&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/09/Star_Bounty™_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/star-bounty-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vswayshive&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.61%"
+    },
+    {
+        "title": "Ultra Hold and Spin&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/08/Ultra_Hold__Spin™_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/ultra-hold-and-spin-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs5ultra&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.70%"
+    },
+    {
+        "title": "Curse of the Werewolf Megaways&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/08/Curse_of_the_Werewolf_Megaways™_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/curse-of-the-werewolf-megaways-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vswayswerewolf&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Peaky Blinders&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/08/Peaky-Blinders-339x180_02.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/peaky-blinders-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20pblinders&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Jungle Gorilla&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/08/Jungle-Gorilla™_EN_339x180_01.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/jungle-gorilla-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20gorilla&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.57%"
+    },
+    {
+        "title": "The Dog House Megaways&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/07/DOHO_Megaways™_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/the-dog-house-megaways-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vswaysdogs&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.55%"
+    },
+    {
+        "title": "Aztec Gems Deluxe&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/07/Aztec-GemsÔäó_EN_339x180_02.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/aztec-gems-deluxe-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs9aztecgemsdx&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Great Rhino Deluxe&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/07/GR_Deluxe™_EN_339x180_03.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/great-rhino-deluxe-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20rhinoluxe&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.54%"
+    },
+    {
+        "title": "Street Racer&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/06/Street-Racer_™_339x180_02.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/street-racer-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs40streetracer&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Drago &#8211; Jewels of Fortune&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/06/Drago_JOF™_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/drago-jewels-of-fortune-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs1600drago&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Pyramid King&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/06/Pyramid-King™_339x180_02-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/pyramid-king-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25pyramid&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Three Star Fortune&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/06/Three-Star-Fortune_EN-_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/three-star-fortune-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10threestar&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.27%"
+    },
+    {
+        "title": "Starz Megaways&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/05/Starz-Megaways™_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/starz-megaways-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs117649starz&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.48%"
+    },
+    {
+        "title": "Ultra Burn&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/05/Ultra_Burn_EN_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/ultra-burn-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs5ultrab&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.62%"
+    },
+    {
+        "title": "Fruit Party&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/05/Fruit-Party™_339x180_01-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/fruit-party-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20fruitparty&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Hot to burn&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/04/Hot-to-Burn™_EN-_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/hot-to-burn-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs5hotburn&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.71%"
+    },
+    {
+        "title": "John Hunter and the book of Tut&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/04/John-Hunter-Book-of-Tut™_339x180-1-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/john-hunter-and-the-book-of-tut-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10bookoftut&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Great Rhino Megaways&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/04/Great-Rhino-Megaways™_EN_339x180_02-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/great-rhino-megaways-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vswaysrhino&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Bronco Spirit&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/03/Bronco-Spirit™_EN_339x180_01-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/bronco-spirit-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs75bronco&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.51%"
+    },
+    {
+        "title": "Fruit Rainbow&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/03/Fruit-Rainbow™_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/fruit-rainbow-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs40frrainbow&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.53%"
+    },
+    {
+        "title": "Wild West Gold&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/03/Wild-West-Gold™_EN_339x180_01-3.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/wild-west-gold-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs40wildwest&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.51%"
+    },
+    {
+        "title": "Dance Party&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/03/Dance-Party™_EN_339x180_01-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/dance-party-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs243dancingpar&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "The Wild Machine&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/02/The-Wild-Machine™_EN_339x180_01-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/the-wild-machine-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs40madwheel&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Aztec Bonanza&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/02/Aztec-Bonanza™_EN_03_339x180_01-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/aztec-bonanza-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs7776aztec&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.53%"
+    },
+    {
+        "title": "Golden Beauty&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/02/Golden-Beauty™_EN_339x180_01.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/golden-beauty-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs75empress&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.44%"
+    },
+    {
+        "title": "Mysterious&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/02/Mysterious™_EN_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/mysterious-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs4096mystery&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Master Joker&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/01/Master-Joker™_EN_339x180_01.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/master-joker-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs1masterjoker&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.46%"
+    },
+    {
+        "title": "Super 7s&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/01/Super7s™_EN_339x180_03.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/super-7s-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs5super7&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Release the Kraken&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/01/ReleaseTheKraken™_EN_339x180_01-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/release-the-kraken-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20kraken&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Money Mouse&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2020/01/Money-Mouse™_EN_339x180_02-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/money-mouse-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25mmouse&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.01%"
+    },
+    {
+        "title": "Magic Journey&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/12/Magic-Journey™_EN_339x180_01-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/magic-journey-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs8magicjourn&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.54%"
+    },
+    {
+        "title": "Buffalo King&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/11/Buffalo-King™_EN_339x180_01.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/buffalo-king-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs4096bufking&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.06%"
+    },
+    {
+        "title": "Greek Gods&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/11/Greek-Gods™_EN_339x180_02-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/greek-gods-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs243fortseren&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Sweet Bonanza Xmas&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/11/Sweet-Bonanza-Xmas™_339x180.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/sweet-bonanza-xmas-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20sbxmas&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.48%"
+    },
+    {
+        "title": "Hercules and Pegasus&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/10/Hercules-Pegasus_339x180_01-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/hercules-and-pegasus-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20hercpeg&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Aladdin and the Sorcerer&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/10/Aladdin-and-the-Sorcerer™_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/aladdin-and-the-sorcerer-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20aladdinsorc&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.23%"
+    },
+    {
+        "title": "Honey Honey Honey&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/09/Honey-Honey-Honey™_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/honey-honey-honey-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20honey&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Fire Strike&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/09/Firestrike™_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/fire-strike-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10firestrike&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Tree of Riches&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/08/Tree-of-Riches™_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/tree-of-riches-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs1fortunetree&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "John Hunter and the Tomb of the Scarab Queen&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/08/John-Hunter-and-TOSQ™_339x180_01-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/john-hunter-and-the-tomb-of-the-scarab-queen-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25scarabqueen&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Super Joker&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/08/Super-Joker_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/super-joker-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs5spjoker&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "The Great Chicken Escape&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/07/The-Great-Chicken-Escape™_339x180px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/the-great-chicken-escape-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20chicken&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Vampires vs Wolves&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/07/VampireVsWolf™_339x180-2-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/vampires-vs-wolves-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10vampwolf&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.49%"
+    },
+    {
+        "title": "Hot Chilli&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/06/Hot-Chilli™_v02_339x180-3.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/hot-chilli-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs9hotroll&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "John Hunter and the Aztec Treasure&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/06/JH-and-the-Aztec-treasure™_339x180_02-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/john-hunter-and-the-aztec-treasure-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs7776secrets&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Monkey Warrior&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/06/Monkey-warrior™.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/monkey-warrior-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs243mwarrior&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Sweet Bonanza&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/03/Sweet-Bonanza™_Thumb_339x180-3.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/sweet-bonanza-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20fruitsw&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.48%"
+    },
+    {
+        "title": "5 Lions Gold&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/03/Thumb_5-Lions-Gold™_339x180px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/5-lions-gold-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs243lionsgold&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Triple Jokers&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/03/Triple-Jokers™_339x180px-1-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/triple-jokers-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs5trjokers&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.47%"
+    },
+    {
+        "title": "Pirate Gold&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/03/Pirates-Code™_Thumb_339x180_02-4.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/pirate-gold-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs40pirate&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Caishen’s Cash&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/03/Caishens-Cah™_339x180px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/caishens-cash-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs243caishien&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "The Dog House&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/02/The-Dog-House™_339x180px-1-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/the-dog-house-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20doghouse&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.51%"
+    },
+    {
+        "title": "Egyptian Fortunes&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/02/Egyptian-Fortunes™_Thumb_339x180-1-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/egyptian-fortunes-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20egypttrs&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Wild Pixies&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/02/Thumb_Wild-Pixies_339x180px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/wild-pixies-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20wildpix&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Extra Juicy&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/01/thumb_Extra-Juicy™_330x140px-1-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/extra-juicy-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10fruity2&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Wild Gladiators&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/01/Wild-Gladiators™_339x180px_03-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/wild-gladiators-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25gladiator&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.17%"
+    },
+    {
+        "title": "Safari King&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2019/01/Safari-Kings™_339x180px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/safari-king-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs50safariking&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.49%"
+    },
+    {
+        "title": "Treasure Horse&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/12/Treasure-Horse™_339x180px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/treasure-horse-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs18mashang&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Mustang Gold&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/12/Thumb_mustang-gold_339x180px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/mustang-gold-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25mustang&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.53%"
+    },
+    {
+        "title": "Leprechaun Carol&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/11/Leprechaun-Song™_Thumb_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/leprechaun-carol-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20leprexmas&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.53%"
+    },
+    {
+        "title": "Triple Dragons&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/10/Thumb_Triple-Dragons_339x180px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/triple-dragons-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs5trdragons&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.51%"
+    },
+    {
+        "title": "Ancient Egypt Classic&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/10/Thumb_Ancient-Egypt-Classic_339x180px-2-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/ancient-egypt-classic-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10egyptcls&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.51%"
+    },
+    {
+        "title": "Vegas Magic&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/09/thumb-Vegas-Magic_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/vegas-magic-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20vegasmagic&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.08%"
+    },
+    {
+        "title": "Master Chen’s Fortune&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/09/thumb_Master-Chens-Fortune_339x180-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/master-chens-fortune-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs9chen&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.48%"
+    },
+    {
+        "title": "Da Vinci’s Treasure&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/08/thumb_DaVincis-Treasure_339x180_ver2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/da-vincis-treasure-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25davinci&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.53%"
+    },
+    {
+        "title": "Leprechaun Song&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/08/thumb_Leprechaun_Song_339X180-1-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/leprechaun-song-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20leprechaun&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.46%"
+    },
+    {
+        "title": "Peking Luck&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/07/thumb_Peking_Luck_330x140-1-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/peking-luck-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25peking&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Jade Butterfly&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/06/thumbs_jade_butterfly_330x140px-1-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/jade-butterfly-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs1024butterfly&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.47%"
+    },
+    {
+        "title": "Madame Destiny&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/06/thumb_madame_destiny_330x140-3.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/madame-destiny-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10madame&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Asgard&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/05/thumb_Asgard_330x140-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/asgard-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25asgard&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.48%"
+    },
+    {
+        "title": "The Champions&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/05/the_champions_330x140-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/the-champions-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25champ&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.51%"
+    },
+    {
+        "title": "5 Lions&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/05/thumbs_5_lions_330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/5-lions-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs243lions&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Great Rhino&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/04/new-thumbs-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/great-rhino-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20rhino&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.53%"
+    },
+    {
+        "title": "Joker&#8217;s Jewels&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/03/thumbs_Jokers_jewels_330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/jokers-jewels-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs5joker&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Fire 88&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/03/thumbs-pt-site_fire88_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/88-fire-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs7fire88&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.46%"
+    },
+    {
+        "title": "Fairytale Fortune&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/03/thumb-Fairytale-Fortune_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/fairytale-fortune-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs15fairytale&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Aztec Gems&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/02/thumbs-pt-site_Aztec-Gems_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/aztec-gems-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs5aztecgems&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Ancient Egypt&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/01/thumb-Ancient-Egypt_330x140-2px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/ancient-egypt-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs10egypt&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.13%"
+    },
+    {
+        "title": "Lucky New Year&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/01/thumb-Lucky-New-Year_330x140px-2-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/lucky-new-year-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25newyear&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.00%"
+    },
+    {
+        "title": "Chilli Heat&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2018/01/thumbs-pt-site_Chilli-Heat_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/chilli-heat-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25chilli&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Gold Rush&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/12/thumbs-pt-site_Gold-Rush_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/gold-rush-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25goldrush&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Roulette",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/12/thumbs-pt-site_Roulette_330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/roulette/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=rla&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "97.30%"
+    },
+    {
+        "title": "American Blackjack",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/12/thumbs-pt-site_Aztec-Gems_330x140px-1-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/american-blackjack/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=bjmb&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "99.60% (3/10)"
+    },
+    {
+        "title": "Wolf Gold Scratchcard",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/12/thumbs-pt-site_330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/wolf-gold-scratchcard/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=scwolfgold&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "67.03%-74.48%"
+    },
+    {
+        "title": "Gold Rush Scratchcard",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/12/thumbs-pt-site_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/gold-rush-scratchcard/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=scgoldrush&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "71.72%-79.69%"
+    },
+    {
+        "title": "Queen of Gold Scratchcard",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/12/thumbs-pt-site_330x140px-3.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/queen-of-gold-scratchcard/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=scqog&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "76.5%-85%"
+    },
+    {
+        "title": "Hot Safari Scratchcard",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/12/thumbs-pt-site_667x414-px-4-350x221.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/hot-safari-scratchcard/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=scsafari&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "80.82%-89.8%"
+    },
+    {
+        "title": "Panda Gold Scratchcard",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/12/thumbs-pt-site_330x140px-5.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/panda-gold-scratchcard/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=scpanda&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "85.59%-95.1%"
+    },
+    {
+        "title": "7 Piggies Scratchcard",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/12/thumbs-pt-site_330x140px-6.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/7-piggies-scratchcard/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=sc7piggies&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "85.4%-94.89%"
+    },
+    {
+        "title": "Diamond Strike Scratchcard",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/12/thumbs-pt-site_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/diamond-strike-scratchcard/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=scdiamond&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "76.55%-85.6%"
+    },
+    {
+        "title": "Monkey Madness&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/11/thumbs-pt-site_Monkey-Madness_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/monkey-madness-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs9madmonkey&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.53%"
+    },
+    {
+        "title": "Triple Tigers&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/11/thumb-TRIPLE-TIGERS_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/triple-tigers-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs1tigers&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Santa",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/11/thumbs-pt-site_Santa_330x140px-3.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/santa-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20santa&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "95.92%"
+    },
+    {
+        "title": "Panda&#8217;s Fortune&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/11/thumbs-pt-site_Panda-Fortune_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/pandas-fortune-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25pandagold&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.17%"
+    },
+    {
+        "title": "7 Piggies&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/10/thumbs-pt-site_7_Piggies_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/7-piggies-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs7pigs&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "95.99%"
+    },
+    {
+        "title": "Diamond Strike&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/09/thumbs-pt-site_Diamond-Strike_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/diamond-strike-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs15diamond&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "97.02%"
+    },
+    {
+        "title": "Vegas Nights&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/09/thumbs-pt-site_Vegas-Nights_330x140px-3.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/vegas-nights-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25vegas&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.03%"
+    },
+    {
+        "title": "Wild Spells&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/08/thumbs-pt-site_Wild_Spells_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/wild-spells-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25wildspells&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.40%"
+    },
+    {
+        "title": "Caishen&#8217;s Gold&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/08/thumbs-pt-site_Cashien_s-Gold_330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/caishens-gold-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs243fortune&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "97.08%"
+    },
+    {
+        "title": "Pixie Wings&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/07/thumbs-pt-sitePixie_Wings_330x140px-2-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/pixie-wings-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs50pixie&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.00%"
+    },
+    {
+        "title": "Jurassic Giants&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/06/thumbs_Jurassic-Giants_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/jurassic-giants-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs4096jurassic&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.03%"
+    },
+    {
+        "title": "Wolf Gold&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/04/thumb__WOLF_GOLD__330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/wolf-gold-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25wolfgold&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.01%"
+    },
+    {
+        "title": "888 Dragons&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/06/thumb_888-Dragons_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/888-dragons-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs1dragon8&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.84%"
+    },
+    {
+        "title": "8 Dragons&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/05/thumb_8_Dragons_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/8-dragons-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20eightdragons&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.37%"
+    },
+    {
+        "title": "Gold Train&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/05/thumbs-pt-site_Gold-Train_330x140px-1-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/gold-train-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs3train&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "97.16%"
+    },
+    {
+        "title": "3 Kingdoms &#8211; Battle of Red Cliffs&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/04/thumb-_3-Kingdoms__330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/3-kingdoms-battle-of-red-cliffs-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25kingdoms&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Queen of Gold&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/02/thumbs-pt-site_QUEEN-OF-GOLD_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/queen-of-gold-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25queenofgold&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Hot Safari&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/03_Hot-Safari_desktop_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/hot-safari-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25safari&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.17%"
+    },
+    {
+        "title": "Panther Queen&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/03/thumbs-pt-site__Panther-Queen__330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/panther-queen-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25pantherqueen&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Queen of Atlantis&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/03/thumbs-pt-site_QUEEN-of-Atlantis__330x140px-4-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/queen-of-atlantis-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs1024atlantis&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.41%"
+    },
+    {
+        "title": "Irish Charms&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/03/thumbs-pt-site_IRISH-CHARMS__330x140px-1-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/irish-charms-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=cs3irishcharms&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.96%"
+    },
+    {
+        "title": "888 Gold&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2017/02/thumbs-pt-site_888_GOLD_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/888-gold-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=cs5triple8gold&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "97.52%"
+    },
+    {
+        "title": "Hercules Son of Zeus&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/12/thumbs-pt-site_Hercules-son-of-Zeus_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/hercules-son-zeus-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs50hercules&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "95.19%"
+    },
+    {
+        "title": "Dragon Kingdom&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/12/thumbs-pt-site_3-Dragon-Kingdom_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/dragon-kingdom-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25dragonkingdom&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.47%"
+    },
+    {
+        "title": "3 Genie Wishes&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/11/thumbs-pt-site_3-GENIE-WISHES_330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/3-genie-wishes-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs50aladdin&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.53%"
+    },
+    {
+        "title": "Multihand Blackjack&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/11/thumbs-pt-site_Multihand-Blackjack_330x140px_new.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/multihand-blackjack/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=bjma&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "99.62% (3/10)"
+    },
+    {
+        "title": "Journey to the West&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/10/thumbs-pt-site_Journey-to-the-West_330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/journey-to-the-west-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25journey&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.47%"
+    },
+    {
+        "title": "Beowulf&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/09/thumbs-pt-site_BEOWULF_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/beowulf/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs40beowulf&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.50%"
+    },
+    {
+        "title": "Lucky Dragons&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/07/Lucky-Dragons_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/lucky-dragons-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs50chinesecharms&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "95.19%"
+    },
+    {
+        "title": "Diamonds are Forever 3 Lines&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/thumbs-pt-site_330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/diamonds-are-forever-3-lines-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=cs3w&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.96%"
+    },
+    {
+        "title": "The Catfather Part II&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/11/thumbs-pt-site_Catz-Part-II_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/the-catfather-part-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs30catz&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.07%"
+    },
+    {
+        "title": "Dwarven Gold Deluxe&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/thumbs-pt-site_Dwarven-Gold-Deluxe_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/dwarven-gold-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25dwarves_new&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.47%"
+    },
+    {
+        "title": "Romeo and Juliet&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/02_Romeo-and-Juliet_desktop_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/romeo-and-juliet-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25romeoandjuliet&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.18%"
+    },
+    {
+        "title": "7 Monkeys",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/11_7-Monkeys_desktop_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/7-monkeys-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs7monkeys&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "92.71%"
+    },
+    {
+        "title": "Hockey League Wild Match&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/04_Hockey-League-Wild-Match_desktop_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/hockey-league-wild-match-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs9hockey&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Mighty Kong&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/05_Mighty-Kong_desktop-330x140px-5.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/mighty-kong-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs50kingkong&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "94.00%"
+    },
+    {
+        "title": "Lady Godiva&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/06_Lady-Godiva_desktop_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/lady-godiva-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20godiva&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "94.05%"
+    },
+    {
+        "title": "The Catfather&#x2122;",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/thumb_The-Catfather-__330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/the-catfather-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs9catz&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "98.10%"
+    },
+    {
+        "title": "Magic Crystals",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/thumb-_Magic-Crystals__330x140px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/magic-crystals-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs243crystalcave&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.35%"
+    },
+    {
+        "title": "Hockey League",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/thumbs_Hockey_remake_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/hockey-league-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20hockey&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "91.93%"
+    },
+    {
+        "title": "Aladdin&#8217;s Treasure",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/12_Aladdins-Treasure_desktop-330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/aladdins-treasure-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs50amt&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.58%"
+    },
+    {
+        "title": "Lady of the Moon",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/35_Lady-of-the-Moon_desktop_330x140px-2.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/lady-of-the-moon-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs13ladyofmoon&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Sugar Rush",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/53_Sugar-Rush_desktop-330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/sugar-rush-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20cm&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.52%"
+    },
+    {
+        "title": "Dwarven Gold",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/25_Dwarven-Gold_desktop_330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/dwarven-gold-slot-2/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25dwarves&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.64%"
+    },
+    {
+        "title": "Glorious Rome",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/30_Glorious-Rome_desktop-330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/glorious-rome-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20rome&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "94.11%"
+    },
+    {
+        "title": "Great Reef",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/33_Great-Reef_desktop-330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/great-reef-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs25sea&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "96.64%"
+    },
+    {
+        "title": "Tales of Egypt",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/59_Tales-of-Egypt_desktop-330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/tales-of-egypt-slot/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vs20egypt&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "91.93%"
+    },
+    {
+        "title": "Baccarat",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/Thumb_Baccarat_339x180px.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/baccarat/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=bca&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "98.76%"
+    },
+    {
+        "title": "Jacks or Better",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/110_Jacks-or-Better_desktop-330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/jacks-or-better/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=vpa&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "99.54%"
+    },
+    {
+        "title": "Keno",
+        "src": "https://www.pragmaticplay.com/wp-content/uploads/2016/05/112_Keno_desktop-330x140px-1.png",
+        "pragmaticUrl": "https://www.pragmaticplay.com/en/games/keno/?gamelang=en&cur=IDR",
+        "iframe": "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?lang=en&cur=IDR&gameSymbol=kna&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobbyURL=https%3A%2F%2Fwww.pragmaticplay.com",
+        "rtp": "94.01%"
+    }
+]
+
+
+    $('#selectGame').select2({
+        data: $.map(data, function(obj, key) {
+            obj.id = key
+            obj.text = obj.title
+            return obj
+        }),
+        templateSelection: function (d) { return $('<span>' + d.text + '</span>') },
+        templateResult: function(item) {
+            if (!item.iframe)  {
+                return
+            }
+
+            return $('<div class="d-flex align-items-center"><img class="img-detail mr-4" src="'+ item.src +'" /> <b>'+ item.title +'</b></div>')
+        }
+    }).on('select2:select', function(e) {
+        var data = e.params.data
+        document.getElementById('gameFrame').setAttribute('src', data.iframe)
+    })
+
+    $('.fullScreenBtn').on('click', function() {
+        var frameWrapperEl = document.querySelector('.frame-wrapper')
+        if (frameWrapperEl.requestFullscreen) {
+            frameWrapperEl.requestFullscreen()
+        } else if (frameWrapperEl.webkitRequestFullscreen) { /* Safari */
+            frameWrapperEl.webkitRequestFullscreen()
+        } else if (frameWrapperEl.msRequestFullscreen) { /* IE11 */
+            frameWrapperEl.msRequestFullscreen()
+        }
+    })
+    </script>
+</body>
+</html>
